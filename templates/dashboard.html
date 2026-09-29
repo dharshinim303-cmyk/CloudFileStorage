@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Cloud File Storage Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <style>
+
+        body {
+            background: #f5f7fb;
+            font-family: Arial, sans-serif;
+        }
+
+        .dashboard-title {
+            font-weight: 700;
+            color: #212529;
+        }
+
+        .welcome-box {
+            border-radius: 15px;
+        }
+
+        .stat-card {
+            border: none;
+            border-radius: 15px;
+            transition: 0.3s;
+            height: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-icon {
+            font-size: 35px;
+        }
+
+        .stat-number {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .section-card {
+            border: none;
+            border-radius: 15px;
+        }
+
+        .progress {
+            height: 18px;
+            border-radius: 20px;
+        }
+
+        .action-card {
+            border: none;
+            border-radius: 15px;
+            height: 100%;
+        }
+
+        .action-card .btn {
+            width: 100%;
+        }
+
+        .table-card {
+            border: none;
+            border-radius: 15px;
+        }
+
+        @media (max-width: 768px) {
+
+            .container {
+                margin-top: 25px !important;
+            }
+
+            .dashboard-title {
+                font-size: 24px;
+            }
+
+            .stat-number {
+                font-size: 25px;
+            }
+
+            table {
+                font-size: 13px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container py-4">
+
+
+    <!-- HEADER -->
+
+    <div class="text-center mb-4">
+
+        <h2 class="dashboard-title">
+            ☁️ Cloud File Storage System
+        </h2>
+
+        <p class="text-muted">
+            Secure and simple cloud file management
+        </p>
+
+    </div>
+
+
+    <!-- WELCOME -->
+
+    <div class="alert alert-success text-center shadow-sm welcome-box">
+
+        <h4>
+            👋 Welcome, {{ username }}!
+        </h4>
+
+        <p class="mb-0">
+            Manage your files securely using Cloudinary.
+        </p>
+
+    </div>
+
+
+
+    <!-- STATISTICS -->
+
+    <div class="row g-4 mt-2">
+
+
+        <!-- TOTAL FILES -->
+
+        <div class="col-12 col-sm-6 col-lg-3">
+
+            <div class="card stat-card shadow-sm p-4 text-center">
+
+                <div class="stat-icon">
+                    📁
+                </div>
+
+                <h6 class="text-muted mt-2">
+                    Total Files
+                </h6>
+
+                <div class="stat-number">
+                    {{ total_files }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- STORAGE -->
+
+        <div class="col-12 col-sm-6 col-lg-3">
+
+            <div class="card stat-card shadow-sm p-4 text-center">
+
+                <div class="stat-icon">
+                    💾
+                </div>
+
+                <h6 class="text-muted mt-2">
+                    Storage Used
+                </h6>
+
+                <div class="stat-number">
+                    {{ storage_mb }} MB
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- IMAGES -->
+
+        <div class="col-12 col-sm-6 col-lg-3">
+
+            <div class="card stat-card shadow-sm p-4 text-center">
+
+                <div class="stat-icon">
+                    🖼️
+                </div>
+
+                <h6 class="text-muted mt-2">
+                    Images
+                </h6>
+
+                <div class="stat-number">
+                    {{ image_count }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PDF -->
+
+        <div class="col-12 col-sm-6 col-lg-3">
+
+            <div class="card stat-card shadow-sm p-4 text-center">
+
+                <div class="stat-icon">
+                    📄
+                </div>
+
+                <h6 class="text-muted mt-2">
+                    PDF Files
+                </h6>
+
+                <div class="stat-number">
+                    {{ pdf_count }}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- OTHER FILES -->
+
+    <div class="row g-4 mt-1">
+
+        <div class="col-12 col-md-4">
+
+            <div class="card stat-card shadow-sm p-4 text-center">
+
+                <div class="stat-icon">
+                    📦
+                </div>
+
+                <h6 class="text-muted mt-2">
+                    Other Files
+                </h6>
+
+                <div class="stat-number">
+                    {{ other_count }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CLOUD STATUS -->
+
+        <div class="col-12 col-md-8">
+
+            <div class="card section-card shadow-sm p-4">
+
+                <div class="d-flex justify-content-between">
+
+                    <h5>
+                        ☁️ Cloud Storage
+                    </h5>
+
+                    <span class="badge bg-success">
+                        Connected ✓
+                    </span>
+
+                </div>
+
+                <p class="text-muted mt-2">
+                    Your files are stored securely in Cloudinary.
+                </p>
+
+                <div class="progress">
+
+                    <div class="progress-bar bg-success"
+                         role="progressbar"
+                         style="width: 100%;">
+
+                        Cloud Storage Active
+
+                    </div>
+
+                </div>
+
+                <small class="text-muted">
+                    Current storage: {{ storage_mb }} MB
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- FILE TYPE STATISTICS -->
+
+    <div class="card section-card shadow-sm p-4 mt-4">
+
+        <h4 class="mb-4">
+            📈 File Type Statistics
+        </h4>
+
+
+        <!-- Images -->
+
+        <div class="mb-3">
+
+            <div class="d-flex justify-content-between">
+
+                <span>
+                    🖼️ Images
+                </span>
+
+                <strong>
+                    {{ image_count }}
+                </strong>
+
+            </div>
+
+            <div class="progress mt-2">
+
+                <div class="progress-bar bg-primary"
+                     style="width:
+                     {% if total_files > 0 %}
+                         {{ (image_count / total_files * 100)|round(0) }}%
+                     {% else %}
+                         0%
+                     {% endif %};">
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PDF -->
+
+        <div class="mb-3">
+
+            <div class="d-flex justify-content-between">
+
+                <span>
+                    📄 PDF Files
+                </span>
+
+                <strong>
+                    {{ pdf_count }}
+                </strong>
+
+            </div>
+
+            <div class="progress mt-2">
+
+                <div class="progress-bar bg-danger"
+                     style="width:
+                     {% if total_files > 0 %}
+                         {{ (pdf_count / total_files * 100)|round(0) }}%
+                     {% else %}
+                         0%
+                     {% endif %};">
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Other -->
+
+        <div>
+
+            <div class="d-flex justify-content-between">
+
+                <span>
+                    📦 Other Files
+                </span>
+
+                <strong>
+                    {{ other_count }}
+                </strong>
+
+            </div>
+
+            <div class="progress mt-2">
+
+                <div class="progress-bar bg-warning"
+                     style="width:
+                     {% if total_files > 0 %}
+                         {{ (other_count / total_files * 100)|round(0) }}%
+                     {% else %}
+                         0%
+                     {% endif %};">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ACTION BUTTONS -->
+
+    <div class="row g-4 mt-1">
+
+
+        <!-- UPLOAD -->
+
+        <div class="col-12 col-md-4">
+
+            <div class="card action-card shadow-sm p-4">
+
+                <h5>
+                    📤 Upload File
+                </h5>
+
+                <p class="text-muted">
+                    Add a new file to your cloud storage.
+                </p>
+
+                <a href="/upload"
+                   class="btn btn-primary">
+
+                    Upload File
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- MY FILES -->
+
+        <div class="col-12 col-md-4">
+
+            <div class="card action-card shadow-sm p-4">
+
+                <h5>
+                    📂 My Files
+                </h5>
+
+                <p class="text-muted">
+                    View and manage all your uploaded files.
+                </p>
+
+                <a href="/myfiles"
+                   class="btn btn-success">
+
+                    View My Files
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- LOGOUT -->
+
+        <div class="col-12 col-md-4">
+
+            <div class="card action-card shadow-sm p-4">
+
+                <h5>
+                    🚪 Logout
+                </h5>
+
+                <p class="text-muted">
+                    Securely logout from your account.
+                </p>
+
+                <a href="/logout"
+                   class="btn btn-danger">
+
+                    Logout
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- RECENT UPLOADS -->
+
+    <div class="card table-card shadow-sm p-4 mt-4">
+
+        <h4 class="mb-3">
+            🕐 Recent Uploads
+        </h4>
+
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle">
+
+                <thead class="table-light">
+
+                    <tr>
+
+                        <th>
+                            File Name
+                        </th>
+
+                        <th>
+                            Uploaded
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                {% for file in recent_files %}
+
+                    <tr>
+
+                        <td>
+                            📄 {{ file.public_id.split("/")[-1] }}
+                        </td>
+
+                        <td>
+                            {{ file.created_at }}
+                        </td>
+
+                    </tr>
+
+                {% else %}
+
+                    <tr>
+
+                        <td colspan="2"
+                            class="text-center text-muted">
+
+                            No recent uploads found.
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- FOOTER -->
+
+    <div class="text-center text-muted mt-4 mb-3">
+
+        <small>
+            ☁️ Cloud File Storage System
+        </small>
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>
